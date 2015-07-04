@@ -1,0 +1,170 @@
+body {
+	font-family: 'Roboto', helvetica, arial, sans-serif;
+}
+
+h1, h2, h3, h4 {
+	font-family: 'Roboto', helvetica, arial, sans-serif;
+	font-weight: normal;
+}
+
+.output {
+	font-size: 10px;
+	font-family: monospace;
+}
+
+footer {
+	text-align: center;
+}
+
+.no-geoloc-message {
+	display: none;
+	color: orange;
+	font-weight: bold;
+
+}
+	
+	
+/* Per page*/
+	
+.splash-page {
+	position: relative;
+	background: url('../img/splash.png');
+	background-size: 100% 100%;
+}
+.splash-logo {
+	position: absolute;
+	left: 20px;
+	top: 20%;
+	width: 60%;
+	height: auto;
+}
+
+.info-page .ui-header {
+	height: 200px;
+	background: url('../img/menu-logo.png') no-repeat center bottom transparent;
+	background-size: auto 80%;
+}
+.info-page {
+	background: #15132c;
+}
+.team-info {
+	text-align: center;
+}
+
+.run-page, .review-page {
+	background-color: #ebebeb;
+	color: white;
+}
+.run-page .ui-header {
+	background-color: #4D7FE8 !important;
+	min-height: 60px;
+	background: url('../img/run-logo.png') no-repeat center center transparent;
+	background-size: 80% auto;
+}
+
+.drive-page .driving-state-message {
+	background-image: none;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	font-size: 28px;
+	text-align: center;
+	font-weight: 300;
+	color: #222;
+}
+
+.drive-page .tripstage-container {
+	padding-left: 50px;
+	background: white;
+	color: #111;
+}
+.drive-page .tripstage-container.tripstage-start {
+	background: url('../img/drive-icon-location.png') no-repeat 15px center;
+	background-size: auto 20px;
+}
+.drive-page .tripstage-container.tripstage-inprogress {
+	background: url('../img/drive-inprogress.png') repeat-y 15px top;
+	background-size: auto auto;
+}
+.drive-page .tripstage-container.tripstage-stop {
+	background: url('../img/drive-stop-square.png') no-repeat 15px center;
+	background-size: 15px 15px;
+}
+
+.drive-page .startend-box {
+	background: white;
+	color: #111;
+	-webkit-box-shadow: 0 2px 5px #555;
+	-moz-box-shadow: 0 2px 5px #555;
+	box-shadow: 0 2px 5px #555;
+	padding: 10px 20px;
+}
+.drive-page .startend-box.placeholder {
+	color: #aaa;
+}
+
+.drive-page .location-progress {
+	padding-left: 20px;
+	list-style-type: disc;
+	font-size: 1.1em;
+}
+
+.drive-page .controls-container {
+	padding: 40px 20%;
+}
+
+
+.review-page .page-stack {
+		
+}
+
+.ui-btn.menu-action {
+	color: white !important;
+	margin: 15px 0;
+	padding: 10% 0;
+	font-size: 20px;
+	font-weight: normal;
+	border-radius: 3px;
+}
+.ui-btn.action-drive {
+	background-color: #4D7FE8 !important;
+}
+.ui-btn.action-statistics {
+	background-color: #BF5CB7 !important;
+}
+.ui-btn.action-info {
+	background-color: #FF5764 !important;
+}
+
+.ui-btn.action-statistics-redlight {
+	padding-left: 40px;
+	background: url('../img/statbtn-redlight.png') no-repeat 15px center;
+	background-size: auto 50%;
+	background-color: #4D7FE8 !important;
+}
+.ui-btn.action-statistics-speedcameras {
+	background: url('../img/statbtn-speedcamera.png') no-repeat 15px center;
+	background-size: auto 50%;
+	background-color: #BF5CB7 !important;
+}
+.ui-btn.action-statistics-schoolzones {
+	background: url('../img/statbtn-schoolzones.png') no-repeat 15px center;
+	background-size: auto 50%;
+	background-color: #FF5764 !important;
+}
+.ui-btn.action-statistics-parkingfines {
+	background: url('../img/statbtn-parkingfines.png') no-repeat 15px center;
+	background-size: auto 50%;
+	background-color: #26CBC0 !important;
+}
+
+.ui-btn.action-start {
+	background-color: #26CBC0 !important;
+}
+.ui-btn.action-stop {
+	background-color: #FF5764 !important;
+}
+.ui-btn.action-review {
+	background-color: #4D7FE8 !important;
+}
+

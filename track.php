@@ -10,34 +10,31 @@ function logTrackingRequest($lat, $long, $speed = 0, $heading = 0){
 function randomiser(){
 	return json_encode(array(
 		'location' => array(
-			'suburb_name' => array('Chatswood', 'Artarmon', 'Manly', 'Neutral Bay', 'Mosman')[rand(0,4)],
+			'suburb_name' => array('Chatswood', 'Chatswood', 'Chatswood', 'Artarmon', 'Manly', 'Neutral Bay', 'Mosman')[rand(0,6)],
 			'suburb_council' => 'Unknown Council'
 		),
 		'speeding' => array(
 			'location_desc' => '',
 			'has_school_zone' => '',
-			'is_top_twenty' => '',
-			'num_offences_this_year' => '',
+			'is_top_twenty' => array(true, false)[rand(0,1)],
+			'num_offences_this_year' => rand(3040,8090),
 			'avg_offences_per_month' => rand(200,400),
 			'avg_offences_this_month' => rand(200,400),
 			'avg_penalty_amount' => rand(100,900),
-			'most_common_band' => array(),
-			'total_revenue_this_month' => '',
-			'this_month_rank' => '',
-			'this_location_rank' => ''
+			'most_common_band' => array('Band XYZ', 'Band ABC', 'Band 3456')[rand(0,2)],
+			'total_revenue_this_month' => rand(70000,200000),
+			'this_month_rank' => rand(1,12),
+			'this_location_rank' => rand(1,99)
 		),
 		'phone' => array(
-			'location_desc' => '',
-			'has_school_zone' => '',
-			'is_top_twenty' => '',
-			'num_offences_this_year' => '',
-			'avg_offences_per_month' => '',
-			'avg_offences_this_month' => '',
-			'avg_penalty_amount' => '',
-			'most_common_band' =>'',
-			'total_revenue_this_month' => '',
-			'this_month_rank' => '',
-			'this_location_rank' => ''
+			'num_offences_this_year' => rand(3040,8090),
+			'avg_offences_per_month' => rand(200,400),
+			'avg_offences_this_month' => rand(200,400),
+			'avg_penalty_amount' => rand(100,900),
+			'most_common_band' => array('Band XYZ', 'Band ABC', 'Band 3456')[rand(0,2)],
+			'total_revenue_this_month' => rand(70000,200000),
+			'this_month_rank' => rand(1,12),
+			'this_location_rank' => rand(1,99)
 		)
 	));
 }
@@ -65,7 +62,7 @@ header('content-type: application/json');
 
 echo randomiser();
 
-
+exit;
 
 
 
