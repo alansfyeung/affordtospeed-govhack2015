@@ -1,0 +1,20 @@
+body {
+	background: #111;
+
+
+}
+
+.content {
+	background: steelblue;
+	color: white;
+}
+
+.output {
+	font-size: 10px;
+	font-family: monospace;
+}
+
+footer {
+	text-align: center;
+
+}
