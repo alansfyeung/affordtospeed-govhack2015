@@ -1,6 +1,3 @@
-
-/** Tracker class */
-
 var Tracker = function(opts){
 	
 	opts = opts || {};
@@ -10,6 +7,7 @@ var Tracker = function(opts){
 	var tripLogbook = new TripData();
 	var watchId, intervalId;
 	var trackerLastStartTime = 0;
+	var startEnd = { start: 'Current Location', end: 'Current Location' };
 	var log = [];
 	
 	var geo = navigator.geolocation;
@@ -45,12 +43,7 @@ var Tracker = function(opts){
 
 		// figure out how long the tracker went for
 		var timeTrackedMins = Math.floor((trackerLastStartTime - Date.now()) / 60000);
-		
-		// Show it on the results screen
-		ScreenUpdater.showFinalResults(tripLogbook, {
-			time: timeTrackedMins
-		});
-		
+
 	  	// progressDisplay.writeLog('Time tracked ' + timeTrackedMins);
 		return timeTrackedMins;
 	};
@@ -133,14 +126,27 @@ var Tracker = function(opts){
 		});
 	};
 	
-	var updateLastTripStage = function(){
-		return tripLogbook.trip.pop();
+	var tripStartEnd = function(isTriggering){
+		
+		if (isTriggering){
+			if (tripLogbook.trip.length > 0){
+				startEnd.start = tripLogbook.trip[0].suburb;
+				startEnd.end = tripLogbook.trip[0].suburb;
+				if (tripLogbook.trip.length > 1){
+					startEnd.end = tripLogbook.trip.pop().suburb;
+				}
+			}	
+		}
+		
+		return startEnd;
+		
 	};
 
 	return {
 		start: start,
 		stop: stop,
-		updateLastTripStage: updateLastTripStage,
+		tripStartEnd: tripStartEnd,
+		tripLogbook: tripLogbook,
 		log: log
 	};	
 		
@@ -152,6 +158,32 @@ var Tracker = function(opts){
 
 // Display controller 
 var ScreenUpdater = {
+	dataDefinitions: {
+		thisMonthName: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][(new Date()).getMonth()],
+		speeding: {
+			location_desc: 'Speed Camera Locations',
+			has_school_zone: 'Has School Zones',
+			is_top_twenty: 'Top 20 Speed Camera revenue',
+			num_offences_this_year: 'Offences this year',
+			avg_offences_per_month: 'Average offences / month',
+			avg_offences_this_month: 'Average offences historically for ' + this.thisMonthName,
+			avg_penalty_amount: 'Average penalty amount',
+			most_common_band: 'Most common infraction',
+			total_revenue_this_month: 'Historic fine revenue for ' + this.thisMonthName,
+			this_month_rank: this.thisMonthName + ' ranked against other months',
+			this_location_rank: 'This suburb ranked against other suburbs',
+		},
+		phone: {
+			num_offences_this_year: 'Offences this year',
+			avg_offences_per_month: 'Average offences / month',
+			avg_offences_this_month: 'Average offences historically for ' + this.thisMonthName,
+			avg_penalty_amount: 'Average penalty amount',
+			most_common_band: 'Most common infraction',
+			total_revenue_this_month: 'Historic fine revenue for ' + this.thisMonthName,
+			this_month_rank: this.thisMonthName + ' ranked against other months',
+			this_location_rank: 'This suburb ranked against other suburbs',
+		}
+	},
 	preStartDriving: function(tracker){
 		$('#drive .driving-state-message').html('Going for a drive?');
 	},
@@ -185,7 +217,62 @@ var ScreenUpdater = {
 		}
 
 	},
-	showFinalResults: function(trip, misc){
+	createReviewPages: function(tripData){
+		var $original = $('#review .pagestack').addClass('original');
+		var tripStageCounter = 1;
+		
+		for (var x in tripData.trip){
+			var $clone = $original.clone().removeClass('original');
+			$clone.find('.review-suburb').html((tripStageCounter++)+'. '+tripData.trip[x].suburb);
+			// '<div class="stratum">Condamine St $$</div>';
+			
+			var categories = ['speeding', 'phone'];
+			for (var i in categories){
+				var thisCategory = categories[i];
+				for (var j in tripData.trip[x].data[thisCategory]){
+					if (this.dataDefinitions[thisCategory] && this.dataDefinitions[thisCategory].hasOwnProperty(j)){
+						var label = this.dataDefinitions[thisCategory][j];
+						var value = tripData.trip[x].data[thisCategory][j];
+						$clone.find('.topmost-inner').append('<div class="stratum '+j+'"><aside>'+value+'</aside><h4>'+label+'</h4></div>');
+					}
+				}
+			}
+			$clone.insertAfter($original);
+			$clone.on('swipeleft', function(){
+				// Go to the previous card
+				var $thisPagestack = $(this);
+				if ($thisPagestack.prev().hasClass('pagestack')){
+					var $otherPagestack = $thisPagestack.prev();
+					$thisPagestack.fadeOut(400, function(){
+						$otherPagestack.fadeIn(200);
+					});
+				}
+			});
+			$clone.find('.drag-prompt').on('swiperight', function(){
+				// Go to the next card
+				var $thisPagestack = $(this).closest('.pagestack');
+				if ($thisPagestack.next().hasClass('pagestack')){
+					var $otherPagestack = $thisPagestack.next();
+					$thisPagestack.fadeOut(400, function(){
+						$otherPagestack.fadeIn(200);
+					});
+				}
+			});
+		}
+		
+		// KILL THE ORIGINAL
+		$original.remove();
+		
+		if ($('#review .pagestack').length > 0){
+			// hide all the other clones
+			$('#review .pagestack').hide();
+			$('#review .pagestack').last().show();	
+		}
+
+	},
+	updateReviewPageHeadings: function(startEnd){
+		$('#review .review-mainheading .start-loc').html(startEnd.start);
+		$('#review .review-mainheading .end-loc').html(startEnd.end);
 		
 	}
 };
@@ -204,8 +291,7 @@ var TripData = function(){
 				timestamp: Date.now(),
 				suburb: data.location.suburb_name,
 				data: data
-			}
-						
+			};		
 			trip.push(tripStage);
 			console.log('Trip so far: ', trip);	
 			return true;
@@ -266,7 +352,7 @@ var TripData = function(){
 
 };
 
-var DisplayPanel = function($theScreen){
+var DisplayPanel = function($theScreen){	
 	var $screen = $theScreen;
 	var logCounter = 0;
 
@@ -287,7 +373,7 @@ var DisplayPanel = function($theScreen){
 var ScreenDefinitions = {
 	
 
-};
+}; 
 
 
 

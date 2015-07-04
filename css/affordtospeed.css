@@ -13,19 +13,23 @@ h1, h2, h3, h4 {
 }
 
 footer {
-	text-align: center;
+	text-align: right;
 }
 
-.no-geoloc-message {
-	display: none;
-	color: orange;
-	font-weight: bold;
-
+footer .replay-icon {
+	display: inline-block;
+	height: 25px;
+	width: 20px;
+	margin: 1em;
+	padding: 0;
+	background: url('../img/replay.png') no-repeat right center transparent;
+	background-color: transparent !important;
+	background-size: 100% 100%;
 }
 	
 	
 /* Per page*/
-	
+
 .splash-page {
 	position: relative;
 	background: url('../img/splash.png');
@@ -38,9 +42,18 @@ footer {
 	width: 60%;
 	height: auto;
 }
+.splash-page .no-geoloc-message {
+	display: none;
+	width: 100%;
+	padding: 20px;
+	top: 20px;
+	position: absolute;
+	color: red;
+	background: rgba(255,255,255,0.3);
+}
 
 .info-page .ui-header {
-	height: 200px;
+	height: 180px;
 	background: url('../img/menu-logo.png') no-repeat center bottom transparent;
 	background-size: auto 80%;
 }
@@ -60,6 +73,10 @@ footer {
 	min-height: 60px;
 	background: url('../img/run-logo.png') no-repeat center center transparent;
 	background-size: 80% auto;
+}
+
+.review-page, .review-page .ui-content {
+	background-color: #4D7FE8 !important;
 }
 
 .drive-page .driving-state-message {
@@ -114,8 +131,82 @@ footer {
 }
 
 
-.review-page .page-stack {
-		
+.review-page .pagestack {
+	position: relative;
+	height: 80%;
+	padding: 10px 40px 10px 30px;
+	background: url('../img/reviewbg.png') repeat-x left center;
+	background-color: transparent;
+	background-size: auto 100%;
+	overflow: visible;
+}
+.review-page .pagestack::after {
+	content: '';
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 50px;
+	background: url('../img/reviewbg-edge.png') no-repeat right center transparent;
+	background-size: auto 100%;
+}
+
+.review-page .drag-prompt {
+	z-index: 99;
+	position: absolute;
+	left: -20px;
+	width: 40px;
+	height: 102%;
+	top: -1%;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 2px 0 8px rgba(0,0,0,0.5);
+}
+
+.review-page .topmost-review {
+	background: #ebebeb;
+	max-height: 550px;
+	overflow-y: scroll;
+}
+.review-page .topmost-review h1 {
+	text-align: center;
+	color: #111;
+	font-size: 2em;
+	font-weight: bold;
+}
+.review-page .topmost-review h1 > span {
+	display: block; 
+	font-size: 0.8em;
+	font-weight: normal;
+}
+.review-page .topmost-inner {
+	margin: 20px;
+	background: #f8f8f8;
+	min-height: 250px;
+	padding-bottom: 20px;
+}
+.review-page .topmost-inner h2 {
+	padding: 1em 0;
+	margin: 0;
+	font-weight: bold;
+	font-size: 1.5em;
+	text-align: center;
+	color: #111;
+}
+.review-page .topmost-inner .stratum {
+	background: white;
+	font-size: 0.9em;
+	color: #111;
+	margin: 5px 0;
+	padding: 0.5em 1em;
+}
+.review-page .topmost-inner .stratum h4 {
+	padding-right: 100px;
+	margin: 0;
+}
+.review-page .topmost-inner .stratum aside {
+	float: right;
 }
 
 .ui-btn.menu-action {
