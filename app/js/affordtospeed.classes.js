@@ -119,7 +119,7 @@ var Tracker = function(opts){
 	var trackToApi = function(coords, opts, callback){
 		// Send it to the server
 		progressDisplay.writeLog('Sending co-ords to server');
-		$.get('http://affordtospeed.gh.alanyeung.net/track.php', coords, function(data){
+		$.get('http://affordtospeed.com/app/track.php', coords, function(data){
 			console.log('tracked data received ', data);
 			progressDisplay.writeLog('You\'re passing through ' + data.location.suburb );
 			callback(data);
@@ -169,7 +169,7 @@ var ScreenUpdater = {
 			avg_penalty_amount: 'Average penalty amount',
 			most_common_band: 'Most common infraction',
 			total_revenue_this_month: 'Historic fine revenue for ' + this.thisMonthName,
-			this_month_rank: this.thisMonthName + ' ranked against other months',
+			this_month_rank: 'This month ranked against other months',
 			this_location_rank: 'This suburb ranked against other suburbs',
 		},
 		phone: {
@@ -179,7 +179,7 @@ var ScreenUpdater = {
 			avg_penalty_amount: 'Average penalty amount',
 			most_common_band: 'Most common infraction',
 			total_revenue_this_month: 'Historic fine revenue for ' + this.thisMonthName,
-			this_month_rank: this.thisMonthName + ' ranked against other months',
+			this_month_rank: 'This month ranked against other months',
 			this_location_rank: 'This suburb ranked against other suburbs',
 		}
 	},
@@ -201,14 +201,14 @@ var ScreenUpdater = {
 	addStartLocation: function(data){
 		var suburbName = 'Current Location';
 		if (data && data.location){
-			suburbName = data.location.suburb_name;
+			suburbName = data.location.suburb;
 		}
 		$('#drive .tripstage-start .startend-box').removeClass('placeholder').html(suburbName);
 	},
 	addLocationProgress: function(data){
 		if (data && data.location){
 			var $loc = $('<li>');
-			$loc.html(data.location.suburb_name);
+			$loc.html(data.location.suburb);
 			$('#drive .location-progress').append($loc);
 		}
 		else {
@@ -288,7 +288,7 @@ var TripData = function(){
 		if (data && data.location){
 			var tripStage = {
 				timestamp: Date.now(),
-				suburb: data.location.suburb_name,
+				suburb: data.location.suburb,
 				data: data
 			};		
 			trip.push(tripStage);
@@ -303,7 +303,7 @@ var TripData = function(){
 	var isNewStage = function(data){
 		if (data && data.location){
 			// ? Check out whether this suburb was already recorded
-			if (trip.length > 0 && trip[trip.length-1].suburb === data.location.suburb_name){
+			if (trip.length > 0 && trip[trip.length-1].suburb === data.location.suburb){
 				console.warn('We are still in the same suburb - dont record this');
 				return false;
 			}
