@@ -12,15 +12,24 @@ h1, h2, h3, h4 {
 	font-family: monospace;
 }
 
+.ui-page {
+	padding-bottom: 40px;
+}
+
 footer {
+	position: absolute;
+	height: 30px;
+	left: 0;
+	right: 0;
+	padding: 5px 10px;
 	text-align: right;
 }
 
 footer .replay-icon {
 	display: inline-block;
-	height: 25px;
-	width: 20px;
-	margin: 1em;
+	height: 20px;
+	width: 16px;
+	margin: 0 1em;
 	padding: 0;
 	background: url('../img/replay.png') no-repeat right center transparent;
 	background-color: transparent !important;
@@ -77,6 +86,10 @@ footer .replay-icon {
 
 .review-page, .review-page .ui-content {
 	background-color: #4D7FE8 !important;
+}
+
+.drive-page .ui-page {
+	background: #ebebeb !important;
 }
 
 .drive-page .driving-state-message {

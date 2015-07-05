@@ -31,6 +31,9 @@
 			<a href="#info" class="ui-btn menu-action action-info">Info</a>
 
 		</div>
+		<footer data-role="footer"> 
+			<a href="" class="action-reset replay-icon"></a>
+		</footer>
 	</div>
 	
 	<div id="info" class="start-page info-page" data-role="page" data-title="Info">
@@ -40,6 +43,9 @@
 			<p>Carefully crafted for Govhack 2015 by <strong>The Manly Squirrels:</strong> Alan, Tiffany, Suzanne and Tina</p>
 
 		</div>
+		<footer data-role="footer"> 
+			<a href="" class="action-reset replay-icon"></a>
+		</footer>
 	</div>
 
 	<div id="statistics" class="start-page info-page" data-role="page" data-title="Statistics">
@@ -52,6 +58,9 @@
 			<a href="#statistics-parkingfines" class="ui-btn menu-action action-statistics-parkingfines">Parking Fines</a>
 
 		</div>
+		<footer data-role="footer"> 
+			<a href="" class="action-reset replay-icon"></a>
+		</footer>
 	</div>
 
 	
@@ -80,6 +89,9 @@
 			
 			<code class="output"></code>
 		</div>
+		<footer data-role="footer"> 
+			<a href="" class="action-reset replay-icon"></a>
+		</footer>
 	</div>
 
 	<div id="review" class="run-page review-page" data-role="page" data-title="Review your Journey">

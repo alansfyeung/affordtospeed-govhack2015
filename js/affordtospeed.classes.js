@@ -161,7 +161,6 @@ var ScreenUpdater = {
 	dataDefinitions: {
 		thisMonthName: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][(new Date()).getMonth()],
 		speeding: {
-			location_desc: 'Speed Camera Locations',
 			has_school_zone: 'Has School Zones',
 			is_top_twenty: 'Top 20 Speed Camera revenue',
 			num_offences_this_year: 'Offences this year',
@@ -233,7 +232,7 @@ var ScreenUpdater = {
 					if (this.dataDefinitions[thisCategory] && this.dataDefinitions[thisCategory].hasOwnProperty(j)){
 						var label = this.dataDefinitions[thisCategory][j];
 						var value = tripData.trip[x].data[thisCategory][j];
-						$clone.find('.topmost-inner').append('<div class="stratum '+j+'"><aside>'+value+'</aside><h4>'+label+'</h4></div>');
+						$clone.find('.topmost-inner').append('<div class="stratum category-'+thisCategory+' '+j+'"><aside>'+value+'</aside><h4>'+label+'</h4></div>');
 					}
 				}
 			}
@@ -317,7 +316,12 @@ var TripData = function(){
 	var getSaved = function(){
 		if (localStorage){
  			if (localStorage.trips){
-				return JSON.parse(localStorage.trips);
+ 				try {
+					return JSON.parse(localStorage.trips);
+ 				}
+ 				catch (err){
+ 					return [];
+ 				}
  			}
  			return true;
  		}
@@ -330,7 +334,12 @@ var TripData = function(){
  		if (localStorage){
 			var saved = [];
  			if (localStorage.trips){
-		 		saved = JSON.parse(localStorage.trips);
+ 				try {
+			 		saved = JSON.parse(localStorage.trips);
+ 				}
+ 				catch (err){
+ 					saved = [];
+ 				}
  			}
 			saved.push(this);
  			localStorage.trips = JSON.stringify(saved);
